@@ -57,7 +57,8 @@ Epic creation is collaborative. Work with the user to:
    - Key architectural decisions
    - Technical insights and gotchas
    - API summary (what was built)
-   - **Validation** - Commands, steps, or artifacts to verify it works
+   - Code walkthrough (key files and functions)
+   - Validation (how to verify it works)
    - References to related docs
 3. Delete the epic directory
 4. Ask user: promote `design.md` to permanent reference?
@@ -75,6 +76,21 @@ Top-level `devdocs/<topic>.md` files contain permanent technical knowledge:
 2. Check `devdocs/*.md` for reference documentation
 3. Check `devdocs/README.md` for index of all docs
 
+## Fixing Bugs
+
+When you encounter a bug or crash, follow this workflow:
+
+1. **Isolate**: Create a minimal standalone reproducer in `tests/regressions/`
+2. **Verify it fails**: Run the test, confirm it reproduces the issue
+3. **Fix**: Implement the fix
+4. **Verify it passes**: Run the test again, confirm it now passes
+5. **Run full suite**: Make sure the fix doesn't break anything else
+
+Don't skip the isolation step. A minimal reproducer:
+- Proves you understand the bug
+- Creates a permanent regression test
+- Makes debugging easier if the fix doesn't work
+
 ## When to Use What
 
 | Scope | Approach |
@@ -90,4 +106,7 @@ Before ending a session:
 - Create `bd` issues for any remaining or discovered work
 - Close completed issues
 - Update plan.md with current state
-- **Provide validation** - Commands, steps, or artifacts for the user to verify the work
+- **Provide validation** - Help the user verify the work without reading diffs:
+  - Commands to run with expected output
+  - Code walkthrough: key files and functions to review (a "speedrun" of the changes)
+  - Summary presentation: what changed, why, and what to look at (like a 1:1 with a tech lead)

@@ -59,7 +59,8 @@ After gathering context, consolidate into:
    - Key architectural decisions
    - Technical insights and gotchas
    - API summary (what was built)
-   - Validation (commands, steps, or artifacts to verify it works)
+   - Code walkthrough (key files and functions)
+   - Validation (how to verify it works)
    - References to related docs
 3. Delete the epic directory
 4. Ask about promoting design.md to permanent reference

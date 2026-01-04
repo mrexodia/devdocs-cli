@@ -142,15 +142,28 @@ func initPiHooks() {
 		fatal(fmt.Sprintf("failed to create .pi/hooks directory: %v", err))
 	}
 
-	hookPath := filepath.Join(hookDir, "bd-prime.ts")
-	if !fileExists(hookPath) {
+	// bd-prime hook
+	bdPrimePath := filepath.Join(hookDir, "bd-prime.ts")
+	if !fileExists(bdPrimePath) {
 		content := readEmbedded("bd-prime.ts")
-		if err := os.WriteFile(hookPath, []byte(content), 0644); err != nil {
-			fatal(fmt.Sprintf("failed to write %s: %v", hookPath, err))
+		if err := os.WriteFile(bdPrimePath, []byte(content), 0644); err != nil {
+			fatal(fmt.Sprintf("failed to write %s: %v", bdPrimePath, err))
 		}
 		info("Created .pi/hooks/bd-prime.ts")
 	} else {
 		info(".pi/hooks/bd-prime.ts already exists")
+	}
+
+	// devdocs-commands hook
+	commandsPath := filepath.Join(hookDir, "devdocs-commands.ts")
+	if !fileExists(commandsPath) {
+		content := readEmbedded("devdocs-commands.ts")
+		if err := os.WriteFile(commandsPath, []byte(content), 0644); err != nil {
+			fatal(fmt.Sprintf("failed to write %s: %v", commandsPath, err))
+		}
+		info("Created .pi/hooks/devdocs-commands.ts")
+	} else {
+		info(".pi/hooks/devdocs-commands.ts already exists")
 	}
 }
 
@@ -165,7 +178,10 @@ func cmdInit() {
 	fmt.Println("  • Beads issue tracking (bd)")
 	fmt.Println("  • devdocs/ for epics and reference docs")
 	fmt.Println("  • AGENTS.md with methodology")
-	fmt.Println("  • pi hook for bd prime injection")
+	fmt.Println("  • pi hooks for bd prime + slash commands")
+	fmt.Println()
+	fmt.Println("Slash commands: /epic-create, /epic-archive, /devdocs-status, etc.")
+	fmt.Println("Run /help in pi to see all commands.")
 }
 
 func printUsage() {

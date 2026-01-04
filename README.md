@@ -38,62 +38,38 @@ A hybrid approach combining:
 
 See the generated `AGENTS.md` for full methodology.
 
-## Common Prompts
+## Slash Commands
 
-Copy-paste these prompts to work with the methodology:
+The init command installs pi hooks that provide these slash commands:
 
-### Onboarding an Existing Project
+### Onboarding
 
-```
-Analyze this codebase and create initial reference documentation in devdocs/.
-Focus on: architecture overview, key patterns, conventions, and gotchas.
-```
-
-```
-Review recent git history and identify any in-progress work that should be
-tracked as bd issues or epics. Create them after confirming with me.
-```
+| Command | Description |
+|---------|-------------|
+| `/devdocs-analyze` | Analyze codebase and create initial reference documentation |
+| `/devdocs-discover` | Review git history to discover in-progress work |
 
 ### Epic Lifecycle
 
-```
-Create a new epic for: <description>
-Set up devdocs/<name>/plan.md and create bd issues for the phases.
-```
-
-```
-Archive the <name> epic. Extract key learnings to devdocs/archive/,
-delete the epic directory, and ask about promoting design.md.
-```
-
-```
-Review the <name> epic and tell me if it's ready for archival.
-List any open issues or incomplete work.
-```
+| Command | Description |
+|---------|-------------|
+| `/epic-create <description>` | Create a new epic with plan.md and bd issues |
+| `/epic-archive <name>` | Archive a completed epic |
+| `/epic-status <name>` | Review epic status and check if ready for archival |
 
 ### Maintenance
 
-```
-Audit devdocs/ for stale or outdated content. Check if reference docs
-still match the current codebase and flag anything that needs updating.
-```
-
-```
-Update devdocs/README.md to reflect the current state of reference docs,
-active epics, and archived epics.
-```
+| Command | Description |
+|---------|-------------|
+| `/devdocs-audit` | Audit devdocs for stale or outdated content |
+| `/devdocs-sync` | Update devdocs/README.md index to match actual files |
 
 ### Discovery
 
-```
-Summarize the current project state: open issues, active epics, blockers,
-and what's ready to work on.
-```
-
-```
-What decisions were made about <topic>? Search the devdocs archive
-and reference documentation.
-```
+| Command | Description |
+|---------|-------------|
+| `/devdocs-status` | Summarize current project state |
+| `/devdocs-search <topic>` | Search devdocs for past decisions |
 
 ## Requirements
 

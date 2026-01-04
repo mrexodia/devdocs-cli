@@ -180,8 +180,7 @@ func cmdInit() {
 	fmt.Println("  • AGENTS.md with methodology")
 	fmt.Println("  • pi hooks for bd prime + slash commands")
 	fmt.Println()
-	fmt.Println("Slash commands: /epic-create, /epic-archive, /devdocs-status, etc.")
-	fmt.Println("Run /help in pi to see all commands.")
+	fmt.Println("Try: /devdocs-onboard, /devdocs-epic, /devdocs-archive, /devdocs-status")
 }
 
 func printUsage() {

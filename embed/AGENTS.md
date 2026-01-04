@@ -10,21 +10,47 @@ For larger initiatives spanning multiple sessions, create an epic:
 
 ```
 devdocs/<epic-name>/
-├── design.md     # User-provided design document (optional)
-└── plan.md       # Goals, phases, required APIs, testing strategy
+├── design.md     # Consolidated design document (from user research)
+└── plan.md       # Implementation phases and testing strategy
 ```
 
-**Creating an epic** (user-initiated):
-1. Create `devdocs/<epic-name>/plan.md` with goals and phases
-2. User may provide `design.md` with requirements/architecture
-3. Create bd epic: `bd epic create "Epic Name"` with child issues
+### Creating an Epic
 
-**Working on an epic:**
-- Use `bd` to track progress on individual issues
+Epic creation is collaborative. Work with the user to:
+
+1. **Gather existing materials** - The user may have:
+   - Research from Claude/ChatGPT/Grok sessions
+   - Notes in Obsidian or other tools
+   - Existing documentation scattered across the project
+   - Reference implementations or examples
+
+2. **Create design.md** - Consolidate the above into a clear design document:
+   - Problem statement and goals
+   - API design or architecture
+   - Key decisions and rationale
+   - References to documentation
+
+3. **Define testing strategy (TDD)** - Before implementation:
+   - What tests exist or need to be created?
+   - Is there a "golden master" to compare against?
+   - Can we set up: `make test` → actionable feedback?
+
+4. **Create plan.md** - Implementation phases:
+   - Phase breakdown with clear milestones
+   - Each phase should be completable in one session
+   - Testing checkpoints between phases
+
+5. **Create bd issues** - `bd epic create` with child issues for tracking
+
+### Working on an Epic
+
 - Reference `design.md` for requirements and constraints
-- Update `plan.md` if scope changes significantly
+- Follow TDD: make tests pass, don't just write code
+- Update `plan.md` if scope changes
+- Stay under 50% context; wrap up at 70%
 
-**Archiving an epic** (user-initiated only):
+### Archiving an Epic (user-initiated only)
+
 1. Ensure all bd issues are closed
 2. Extract key learnings to `devdocs/archive/<epic-name>.md`:
    - Goal and scope (1 paragraph)
@@ -32,16 +58,14 @@ devdocs/<epic-name>/
    - Technical insights and gotchas
    - API summary (what was built)
    - References to related docs
-3. Delete the epic directory (plan.md, design.md)
-4. Ask user: promote `design.md` to `devdocs/<epic-name>.md` as permanent reference?
-
-**Note:** Suggest when an epic might be ready for archival, but don't archive without explicit user request.
+3. Delete the epic directory
+4. Ask user: promote `design.md` to permanent reference?
 
 ## Reference Documentation
 
-Top-level `devdocs/<topic>.md` files contain permanent technical knowledge (not tied to any epic):
+Top-level `devdocs/<topic>.md` files contain permanent technical knowledge:
 - Debugging guidelines, architectural patterns, API conventions
-- Created when knowledge is broadly applicable beyond a single epic
+- Created when knowledge applies beyond a single epic
 - Listed in `devdocs/README.md`
 
 ## Looking Up Past Decisions
@@ -64,3 +88,4 @@ Top-level `devdocs/<topic>.md` files contain permanent technical knowledge (not 
 Before ending a session:
 - Create `bd` issues for any remaining or discovered work
 - Close completed issues
+- Update plan.md with current state

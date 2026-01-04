@@ -1,131 +1,90 @@
 import type { HookAPI } from "@mariozechner/pi-coding-agent/hooks";
 
 export default function (pi: HookAPI) {
-  // Onboarding commands
-  pi.registerCommand("devdocs-analyze", {
-    description: "Analyze codebase and create initial reference documentation",
+  pi.registerCommand("devdocs-onboard", {
+    description: "Analyze codebase, create reference docs, discover in-progress work",
     handler: async (_args, ctx) => {
       pi.sendMessage({
         customType: "devdocs",
-        content: `Analyze this codebase and create initial reference documentation in devdocs/.
-Focus on: architecture overview, key patterns, conventions, and gotchas.
+        content: `Onboard this project to the devdocs methodology:
+1. Analyze the codebase and create initial reference documentation in devdocs/
+2. Review recent git history for in-progress work that should become bd issues
+3. Update devdocs/README.md with the new documentation
+
 Ask me before creating any files.`,
         display: true,
       }, { triggerTurn: true });
     }
   });
 
-  pi.registerCommand("devdocs-discover", {
-    description: "Review git history to discover in-progress work",
-    handler: async (_args, ctx) => {
-      pi.sendMessage({
-        customType: "devdocs",
-        content: `Review recent git history and identify any in-progress work that should be
-tracked as bd issues or epics. Create them after confirming with me.`,
-        display: true,
-      }, { triggerTurn: true });
-    }
-  });
-
-  // Epic lifecycle commands
-  pi.registerCommand("epic-create", {
-    description: "Create a new epic with plan.md and bd issues",
+  pi.registerCommand("devdocs-epic", {
+    description: "Plan a new epic collaboratively with design doc and TDD strategy",
     handler: async (args, ctx) => {
       if (!args.trim()) {
-        ctx.ui.notify("Usage: /epic-create <description>", "warning");
+        ctx.ui.notify("Usage: /devdocs-epic <name-or-description>", "warning");
         return;
       }
       pi.sendMessage({
         customType: "devdocs",
-        content: `Create a new epic for: ${args}
-Set up devdocs/<name>/plan.md and create bd issues for the phases.
-Ask me to confirm the name and structure before creating.`,
+        content: `Let's plan the "${args}" epic together.
+
+First, help me gather context:
+1. **Existing materials** - Do you have any existing research, notes, or design docs for this?
+   (Claude/ChatGPT sessions, Obsidian notes, scattered docs, reference implementations)
+
+2. **Testing strategy** - What's our TDD approach?
+   - Are there existing tests we need to pass?
+   - Is there a "golden master" or reference implementation to compare against?
+   - What command runs tests? (e.g., \`make test\`, \`uv run pytest\`)
+
+3. **Scope** - What's the definition of done?
+
+Once I understand the context, I'll help consolidate everything into:
+- \`devdocs/${args}/design.md\` - consolidated design document
+- \`devdocs/${args}/plan.md\` - phased implementation plan
+- bd issues for tracking
+
+What materials do you have to start with?`,
         display: true,
       }, { triggerTurn: true });
     }
   });
 
-  pi.registerCommand("epic-archive", {
-    description: "Archive a completed epic",
+  pi.registerCommand("devdocs-archive", {
+    description: "Archive completed epic with learnings",
     handler: async (args, ctx) => {
       if (!args.trim()) {
-        ctx.ui.notify("Usage: /epic-archive <epic-name>", "warning");
+        ctx.ui.notify("Usage: /devdocs-archive <epic-name>", "warning");
         return;
       }
       pi.sendMessage({
         customType: "devdocs",
-        content: `Archive the "${args}" epic. Extract key learnings to devdocs/archive/,
-delete the epic directory, and ask about promoting design.md.`,
+        content: `Archive the "${args}" epic:
+1. Verify all bd issues are closed
+2. Extract key learnings to devdocs/archive/${args}.md:
+   - Goal and scope (1 paragraph)
+   - Key architectural decisions
+   - Technical insights and gotchas
+   - API summary (what was built)
+   - References to related docs
+3. Delete the epic directory
+4. Ask about promoting design.md to permanent reference
+5. Update devdocs/README.md`,
         display: true,
       }, { triggerTurn: true });
     }
   });
 
-  pi.registerCommand("epic-status", {
-    description: "Review epic status and check if ready for archival",
-    handler: async (args, ctx) => {
-      if (!args.trim()) {
-        ctx.ui.notify("Usage: /epic-status <epic-name>", "warning");
-        return;
-      }
-      pi.sendMessage({
-        customType: "devdocs",
-        content: `Review the "${args}" epic and tell me if it's ready for archival.
-List any open issues or incomplete work.`,
-        display: true,
-      }, { triggerTurn: true });
-    }
-  });
-
-  // Maintenance commands
-  pi.registerCommand("devdocs-audit", {
-    description: "Audit devdocs for stale or outdated content",
-    handler: async (_args, ctx) => {
-      pi.sendMessage({
-        customType: "devdocs",
-        content: `Audit devdocs/ for stale or outdated content. Check if reference docs
-still match the current codebase and flag anything that needs updating.`,
-        display: true,
-      }, { triggerTurn: true });
-    }
-  });
-
-  pi.registerCommand("devdocs-sync", {
-    description: "Update devdocs/README.md index to match actual files",
-    handler: async (_args, ctx) => {
-      pi.sendMessage({
-        customType: "devdocs",
-        content: `Update devdocs/README.md to reflect the current state of reference docs,
-active epics, and archived epics.`,
-        display: true,
-      }, { triggerTurn: true });
-    }
-  });
-
-  // Discovery commands
   pi.registerCommand("devdocs-status", {
-    description: "Summarize current project state",
+    description: "Show open issues, active epics, stale docs",
     handler: async (_args, ctx) => {
       pi.sendMessage({
         customType: "devdocs",
-        content: `Summarize the current project state: open issues, active epics, blockers,
-and what's ready to work on.`,
-        display: true,
-      }, { triggerTurn: true });
-    }
-  });
-
-  pi.registerCommand("devdocs-search", {
-    description: "Search devdocs for past decisions",
-    handler: async (args, ctx) => {
-      if (!args.trim()) {
-        ctx.ui.notify("Usage: /devdocs-search <topic>", "warning");
-        return;
-      }
-      pi.sendMessage({
-        customType: "devdocs",
-        content: `What decisions were made about "${args}"? Search the devdocs archive
-and reference documentation.`,
+        content: `Show the current project status:
+- Open bd issues and blockers (run bd ready, bd list --status=open)
+- Active epics in devdocs/ and their current phase
+- Any stale or outdated documentation
+- Update devdocs/README.md if out of sync`,
         display: true,
       }, { triggerTurn: true });
     }

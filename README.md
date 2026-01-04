@@ -40,36 +40,22 @@ See the generated `AGENTS.md` for full methodology.
 
 ## Slash Commands
 
-The init command installs pi hooks that provide these slash commands:
-
-### Onboarding
-
 | Command | Description |
 |---------|-------------|
-| `/devdocs-analyze` | Analyze codebase and create initial reference documentation |
-| `/devdocs-discover` | Review git history to discover in-progress work |
+| `/devdocs-onboard` | Analyze codebase, create reference docs, discover in-progress work |
+| `/devdocs-epic <name>` | Plan epic collaboratively (gather research, define TDD strategy, create design.md) |
+| `/devdocs-archive <name>` | Archive completed epic with learnings |
+| `/devdocs-status` | Show open issues, active epics, stale docs |
 
-### Epic Lifecycle
+## Philosophy
 
-| Command | Description |
-|---------|-------------|
-| `/epic-create <description>` | Create a new epic with plan.md and bd issues |
-| `/epic-archive <name>` | Archive a completed epic |
-| `/epic-status <name>` | Review epic status and check if ready for archival |
+This methodology is based on lessons from effective "vibe engineering":
 
-### Maintenance
-
-| Command | Description |
-|---------|-------------|
-| `/devdocs-audit` | Audit devdocs for stale or outdated content |
-| `/devdocs-sync` | Update devdocs/README.md index to match actual files |
-
-### Discovery
-
-| Command | Description |
-|---------|-------------|
-| `/devdocs-status` | Summarize current project state |
-| `/devdocs-search <topic>` | Search devdocs for past decisions |
+1. **Design first** — Research in Claude/ChatGPT, consolidate into `design.md` before coding
+2. **TDD for AI** — Set up test harness first, then "work until tests pass"
+3. **Scaffold the project** — `make test` must produce actionable feedback
+4. **Your compaction > auto compaction** — Persist state in files (plan.md, bd issues)
+5. **Manager mindset** — Step back, let the agent iterate autonomously
 
 ## Requirements
 

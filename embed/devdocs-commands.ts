@@ -6,7 +6,7 @@ export default function (pi: HookAPI) {
     handler: async (_args, ctx) => {
       pi.sendMessage({
         customType: "devdocs",
-        content: `Onboard this project to the devdocs methodology:
+        content: `Set up devdocs for this project:
 1. Analyze the codebase and create initial reference documentation in devdocs/
 2. Review recent git history for in-progress work that should become bd issues
 3. Update devdocs/README.md with the new documentation
@@ -18,7 +18,7 @@ Ask me before creating any files.`,
   });
 
   pi.registerCommand("devdocs-epic", {
-    description: "Plan a new epic collaboratively with design doc and TDD strategy",
+    description: "Plan a new epic with design doc and TDD strategy",
     handler: async (args, ctx) => {
       if (!args.trim()) {
         ctx.ui.notify("Usage: /devdocs-epic <name-or-description>", "warning");
@@ -26,25 +26,18 @@ Ask me before creating any files.`,
       }
       pi.sendMessage({
         customType: "devdocs",
-        content: `Let's plan the "${args}" epic together.
+        content: `Plan the "${args}" epic. Before creating any files, ask me about:
 
-First, help me gather context:
-1. **Existing materials** - Do you have any existing research, notes, or design docs for this?
-   (Claude/ChatGPT sessions, Obsidian notes, scattered docs, reference implementations)
+1. **Existing materials**: Do I have research, notes, or design docs? (Claude/ChatGPT sessions, Obsidian notes, scattered docs, reference implementations)
 
-2. **Testing strategy** - What's our TDD approach?
-   - Are there existing tests we need to pass?
-   - Is there a "golden master" or reference implementation to compare against?
-   - What command runs tests? (e.g., \`make test\`, \`uv run pytest\`)
+2. **Testing strategy**: What tests exist or need to be created? Is there a golden master to compare against? What command runs tests?
 
-3. **Scope** - What's the definition of done?
+3. **Scope**: What's the definition of done?
 
-Once I understand the context, I'll help consolidate everything into:
-- \`devdocs/${args}/design.md\` - consolidated design document
-- \`devdocs/${args}/plan.md\` - phased implementation plan
-- bd issues for tracking
-
-What materials do you have to start with?`,
+After gathering context, consolidate into:
+- \`devdocs/${args}/design.md\`
+- \`devdocs/${args}/plan.md\`
+- bd issues for tracking`,
         display: true,
       }, { triggerTurn: true });
     }
@@ -66,6 +59,7 @@ What materials do you have to start with?`,
    - Key architectural decisions
    - Technical insights and gotchas
    - API summary (what was built)
+   - Validation (commands, steps, or artifacts to verify it works)
    - References to related docs
 3. Delete the epic directory
 4. Ask about promoting design.md to permanent reference

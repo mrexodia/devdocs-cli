@@ -1,9 +1,14 @@
 # devdocs-cli
 
-Initialize the devdocs + beads methodology in any repository.
+Structure your AI coding projects. Sets up issue tracking and documentation patterns that help agents maintain context across sessions.
 
 ## Install
 
+First, install the dependencies:
+- [beads](https://github.com/steveyegge/beads) (`bd`) for issue tracking
+- [pi](https://github.com/mariozechner/pi-coding-agent) for the coding agent and slash commands
+
+Then install devdocs-cli:
 ```bash
 go install github.com/mrexodia/devdocs-cli@latest
 ```
@@ -108,7 +113,7 @@ Then delete the epic directory. Optionally promote `design.md` to permanent refe
 | Command | Description |
 |---------|-------------|
 | `/devdocs-onboard` | Analyze codebase, create reference docs, discover in-progress work |
-| `/devdocs-epic <name>` | Plan epic collaboratively (gather research, define TDD, create design.md) |
+| `/devdocs-epic <name>` | Plan a new epic (gather existing materials, define TDD, create design.md) |
 | `/devdocs-archive <name>` | Archive completed epic with learnings |
 | `/devdocs-status` | Show open issues, active epics, stale docs |
 
@@ -123,7 +128,4 @@ This methodology is based on lessons from effective "vibe engineering":
 5. **Persist state deliberately**: Files survive context resets. Your compaction beats auto-compaction.
 6. **Verify without code review**: Validation artifacts show things working instead of requiring diff review.
 
-## Requirements
 
-- [beads](https://github.com/steveyegge/beads) (`bd` command)
-- [pi](https://github.com/mariozechner/pi-coding-agent) (optional, for hooks and slash commands)

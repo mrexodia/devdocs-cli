@@ -29,6 +29,7 @@ Ask me before creating any files.`,
         content: `Plan the "${args}" epic. Before creating any files, ask me about:
 
 1. **Existing materials**: Do I have research, notes, or design docs? (Claude/ChatGPT sessions, Obsidian notes, scattered docs, reference implementations)
+   - If none: Ask me to describe what I want to build, or help me brainstorm the requirements first.
 
 2. **Testing strategy**: What tests exist or need to be created? Is there a golden master to compare against? What command runs tests?
 

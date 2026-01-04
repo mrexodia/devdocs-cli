@@ -47,7 +47,6 @@ Epic creation is collaborative. Work with the user to:
 - Reference `design.md` for requirements and constraints
 - Follow TDD: make tests pass, don't just write code
 - Update `plan.md` if scope changes
-- Stay under 50% context; wrap up at 70%
 
 ### Archiving an Epic (user-initiated only)
 
@@ -78,18 +77,20 @@ Top-level `devdocs/<topic>.md` files contain permanent technical knowledge:
 
 ## Fixing Bugs
 
-When you encounter a bug or crash, follow this workflow:
+For non-trivial bugs, isolate before fixing:
 
-1. **Isolate**: Create a minimal standalone reproducer in `tests/regressions/`
+1. **Isolate**: Create a minimal standalone reproducer test
 2. **Verify it fails**: Run the test, confirm it reproduces the issue
 3. **Fix**: Implement the fix
 4. **Verify it passes**: Run the test again, confirm it now passes
 5. **Run full suite**: Make sure the fix doesn't break anything else
 
-Don't skip the isolation step. A minimal reproducer:
+A minimal reproducer:
 - Proves you understand the bug
 - Creates a permanent regression test
 - Makes debugging easier if the fix doesn't work
+
+For trivial fixes (typos, obvious one-liners), use your judgment. But if you find yourself guessing at the cause or trying multiple fixes, stop and isolate first.
 
 ## When to Use What
 

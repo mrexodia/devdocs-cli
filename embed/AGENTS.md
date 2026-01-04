@@ -57,6 +57,7 @@ Epic creation is collaborative. Work with the user to:
    - Key architectural decisions
    - Technical insights and gotchas
    - API summary (what was built)
+   - **Validation** - Commands, steps, or artifacts to verify it works
    - References to related docs
 3. Delete the epic directory
 4. Ask user: promote `design.md` to permanent reference?
@@ -89,3 +90,4 @@ Before ending a session:
 - Create `bd` issues for any remaining or discovered work
 - Close completed issues
 - Update plan.md with current state
+- **Provide validation** - Commands, steps, or artifacts for the user to verify the work

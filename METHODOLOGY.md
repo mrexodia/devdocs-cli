@@ -53,6 +53,47 @@ Use `bd ready` to find unblocked work. Use `bd close` when work is complete.
 
 The combination of devdocs (for design and planning) and beads (for granular tracking) gives you both the big picture and the details.
 
+#### Writing Good Issues
+
+Issues must be **self-sufficient for session handoff**. A new session should be able to pick up an issue from `bd show <id>` without hunting through the codebase or reading multiple docs to understand what to do.
+
+Each issue description should include:
+
+1. **What to build** - Concrete deliverables: files to create, endpoints to implement, functions to write. Include dependencies to install.
+
+2. **References** - Specific doc sections, not vague pointers. Say "DESIGN.md § 'Server API'" not "see the docs". A new session can jump directly to the relevant section.
+
+3. **Validation** - How to know it's done. A command to run, expected output, or observable behavior. This is the acceptance test.
+
+**Example of a bad issue:**
+```
+Title: Implement the server foundation
+Description: Create the basic HTTP server as described in the design doc.
+```
+
+This requires the agent to search for which design doc, read the whole thing, and figure out what "foundation" means.
+
+**Example of a good issue:**
+```
+Title: Phase 1: Server Foundation
+Description:
+Create basic HTTP server with placeholder UI.
+
+## What to build
+- server/main.go with HTTP server on port 8080
+- server/static/index.html (placeholder)
+- GET /api/sessions returning {"sessions": []}
+
+## References
+- devdocs/mvp/implementation.md § 'Phase 1: Server Foundation'
+- devdocs/mvp/design.md § 'Server' for full API spec
+
+## Validation
+Can load http://localhost:8080 in browser and see HTML page.
+```
+
+This issue is actionable immediately. The agent knows exactly what to create, where to find details, and how to verify success. All references point to the self-contained epic directory.
+
 ### Reference Documentation
 
 Some knowledge applies beyond any single epic. This goes in top-level files:
@@ -98,7 +139,25 @@ Epic creation is collaborative. Ask the user:
 
 3. **Scope**: What's the definition of done?
 
-After gathering this context, help consolidate everything into design.md and plan.md, then create bd issues for tracking.
+After gathering this context:
+
+1. **Consolidate content INTO devdocs/<epic>/**, not just reference it. The epic directory must be self-contained:
+   ```
+   devdocs/<epic>/
+   ├── design.md      # Full architecture, decisions, constraints
+   ├── plan.md        # Implementation phases with validation criteria
+   ├── tests.md       # Test specifications (if substantial)
+   └── ...            # Other supporting docs as needed
+   ```
+
+2. **Create bd issues** with self-sufficient descriptions (what to build, references to devdocs/<epic>/ sections, validation).
+
+3. **Offer to delete the original scattered docs.** Since devdocs/<epic>/ now contains the canonical content, the originals (top-level DESIGN.md, research notes, etc.) are redundant. Options:
+   - **Delete**: Remove the files (git history preserves them)
+   - **Move to archive**: `devdocs/archive/originals/` if user wants to keep them accessible
+   - **Keep**: User preference, but warn about duplication risk
+
+The goal: after epic creation, `devdocs/<epic>/` is completely independent. A new session can execute the epic using only what's in that directory plus the bd issues.
 
 ### Working on an Epic
 

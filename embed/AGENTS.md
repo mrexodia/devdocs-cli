@@ -24,11 +24,11 @@ Epic creation is collaborative. Work with the user to:
    - Existing documentation scattered across the project
    - Reference implementations or examples
 
-2. **Create design.md** - Consolidate the above into a clear design document:
+2. **Create design.md** - Consolidate the above **INTO** the epic directory (not just reference it):
    - Problem statement and goals
-   - API design or architecture
+   - API design or architecture  
    - Key decisions and rationale
-   - References to documentation
+   - Full content, not links to external files
 
 3. **Define testing strategy (TDD)** - Before implementation:
    - What tests exist or need to be created?
@@ -40,7 +40,48 @@ Epic creation is collaborative. Work with the user to:
    - Each phase should be completable in one session
    - Testing checkpoints between phases
 
-5. **Create bd issues** - `bd epic create` with child issues for tracking
+5. **Create bd issues** - Create epic with child issues for tracking
+
+6. **Offer cleanup** - Since devdocs/<epic>/ now contains the consolidated content, offer to delete the original scattered docs (DESIGN.md, research notes, etc.). The epic must be self-contained.
+
+### Writing Good Bd Issues
+
+Issues must be **self-sufficient for session handoff**. A new session should be able to pick up an issue from `bd show <id>` without hunting through the codebase.
+
+**Required sections in issue description:**
+
+```markdown
+## What to build
+- Concrete deliverables (files, endpoints, functions)
+- Dependencies to install
+
+## References
+- Specific doc sections: "DESIGN.md § 'Server API'"
+- Not just "see the docs"
+
+## Validation
+- Command to run with expected output
+- How to know it's done
+```
+
+**Bad issue:** "Implement the server foundation"
+
+**Good issue:**
+```
+Create basic HTTP server with placeholder UI.
+
+## What to build
+- server/main.go with HTTP server on port 8080
+- server/static/index.html (placeholder)
+- GET /api/sessions returning {"sessions": []}
+
+## References
+- devdocs/<epic>/implementation.md § 'Phase 1: Server Foundation'
+- devdocs/<epic>/design.md § 'Server' for full API spec
+
+## Validation
+Can load http://localhost:8080 in browser and see HTML page.
+```
 
 ### Working on an Epic
 

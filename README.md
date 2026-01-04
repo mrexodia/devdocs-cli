@@ -113,7 +113,7 @@ Then delete the epic directory. Optionally promote `design.md` to permanent refe
 | Command | Description |
 |---------|-------------|
 | `/devdocs-onboard` | Analyze codebase, create reference docs, discover in-progress work |
-| `/devdocs-epic <name>` | Plan a new epic (gather existing materials, define TDD, create design.md) |
+| `/devdocs-plan <name>` | Plan a new epic (gather existing materials, define TDD, create design.md) |
 | `/devdocs-archive <name>` | Archive completed epic with learnings |
 | `/devdocs-status` | Show open issues, active epics, stale docs |
 

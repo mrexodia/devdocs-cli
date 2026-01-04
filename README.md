@@ -128,4 +128,5 @@ This methodology is based on lessons from effective "vibe engineering":
 5. **Persist state deliberately**: Files survive context resets. Your compaction beats auto-compaction.
 6. **Verify without code review**: Validation artifacts show things working instead of requiring diff review.
 
+For the full methodology, see [METHODOLOGY.md](METHODOLOGY.md).
 

@@ -1,5 +1,7 @@
 # devdocs-cli
 
+**NOTE: This was just a (failed) experiment. Probably https://backlog.md is what you want instead. The [beads](https://github.com/steveyegge/beads) issue tracker is a massive PITA, do not recommend**
+
 Structure your AI coding projects. Sets up issue tracking and documentation patterns that help agents maintain context across sessions.
 
 ## Install
